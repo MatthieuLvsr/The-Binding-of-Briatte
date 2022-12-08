@@ -1,6 +1,8 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
+#include "shooter.h"
+#include "player.h"
 struct MONSTER{
     int x;
     int y;
@@ -25,6 +27,8 @@ struct MONSTER_LIST{
 typedef struct MONSTER_LIST MONSTER_LIST;
 
 typedef struct MAP MAP;
+typedef struct PLAYER PLAYER;
+typedef struct SHOOT SHOOT;
 
 MONSTER_LIST* spawn(int size, int roomX, int roomY, MAP *map);
 
@@ -41,6 +45,8 @@ int checkHealthMonster(MONSTER *monster);
 void hitMonsterByCoord(int damage, MONSTER_LIST* monster_list, int x, int y);
 int monsterLength(MONSTER_LIST* monster_list);
 int checkKills(MONSTER_LIST* monster_list);
+void monsterAI(Floor* floor, MONSTER_LIST *monster_list, PLAYER *player, SHOOT** projectiles);
+int checkCollisionMonster(char** room,PLAYER *player, MONSTER* monster, char dir);
 
 
 #endif

@@ -21,6 +21,7 @@ typedef struct MAP MAP;
 typedef struct PLAYER PLAYER;
 typedef struct BOSS_MONSTER BOSS_MONSTER;
 typedef struct MONSTER MONSTER;
+typedef struct MONSTER_LIST MONSTER_LIST;
 
 /** Nouveau tir
  * @param projectiles liste des tirs

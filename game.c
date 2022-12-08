@@ -61,7 +61,13 @@ int play(void){
                 room->map->status = 0;
                 room->map->room[room->map->height/2][room->map->width/2] = 'N';
             }
-            if(room->type == 0){
+            if(room->type == 0 && room->map->status == 1){
+                if(delay_boss >= boss->delay){ 
+                    monsterAI(floor,room->monster_list,&player,&projectiles);
+                    delay_boss = 0.0;            
+                }else{
+                    delay_boss += 1.0;
+                }
                 if(checkKills(room->monster_list)){
                     room->map->status = 0;
                 }

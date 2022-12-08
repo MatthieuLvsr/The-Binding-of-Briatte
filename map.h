@@ -24,6 +24,7 @@ typedef struct MAP{
 
 typedef struct BOSS_MONSTER BOSS_MONSTER;
 typedef struct MONSTER MONSTER;
+typedef struct MONSTER_LIST MONSTER_LIST;
 
 /** Récupération de la disposition de la salle
  * @param id id de la salle

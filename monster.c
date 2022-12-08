@@ -18,7 +18,7 @@ MONSTER_LIST* spawn(int size, int roomX, int roomY, MAP *map){
             x = rand()%map->width;
             y = rand()%map->height;
         }while(map->room[y][x] != EMPTY);
-        int index = rand()%getNbMonster();
+        int index = rand()%(getNbMonster() - 1);
         newMonster->monster = getMonster(index, map, monsterLength(monster_list) + 1);
         newMonster->last = monster_list;
         monster_list = newMonster;
@@ -43,8 +43,8 @@ MONSTER* getMonster(int id, MAP* map, int ind){
     }else{
         int x,y;
         do{
-            x = rand()%map->width;
-            y = rand()%map->height;
+            x = 1 + rand()%(map->width - 1);
+            y = 1 + rand()%(map->height - 1);
         }while(map->room[y][x] != EMPTY);
         MONSTER* monster = malloc(sizeof(MONSTER));
         monster->alive = 1;
@@ -199,4 +199,83 @@ int monsterLength(MONSTER_LIST* monster_list){
         monster_list = monster_list->last;
     }
     return i;
+}
+
+void monsterAI(Floor* floor, MONSTER_LIST *monster_list, PLAYER *player, SHOOT** projectiles){
+    RoomItem* room = getRoomByCoord(floor->list,player->roomX, player->roomY);
+    int choice = rand()%2;
+    while(monster_list && monster_list->monster->alive){
+        int ss = monster_list->monster->ss;
+
+        if(ss){
+            if(choice > 0){
+                if(player->x < monster_list->monster->x)checkCollisionMonster(room->map->room,player,monster_list->monster,'q');
+                else if(player->x > monster_list->monster->x)checkCollisionMonster(room->map->room,player,monster_list->monster,'d');
+                else if(player->y > monster_list->monster->y)checkCollisionMonster(room->map->room,player,monster_list->monster,'s');
+                else if(player->y < monster_list->monster->x)checkCollisionMonster(room->map->room,player,monster_list->monster,'z');
+            }else{
+                if(player->x < monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'q', 'X');
+                else if(player->x > monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'d', 'X');
+                else if(player->y > monster_list->monster->y)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'s', 'X');
+                else if(player->y < monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'z', 'X');
+            }
+        }else{
+           if(player->x < monster_list->monster->x)checkCollisionMonster(room->map->room,player,monster_list->monster,'q');
+            else if(player->x > monster_list->monster->x)checkCollisionMonster(room->map->room,player,monster_list->monster,'d');
+            else if(player->y > monster_list->monster->y)checkCollisionMonster(room->map->room,player,monster_list->monster,'s');
+            else if(player->y < monster_list->monster->x)checkCollisionMonster(room->map->room,player,monster_list->monster,'z'); 
+        }
+
+        monster_list = monster_list->last;
+    }
+}
+
+int checkCollisionMonster(char** room,PLAYER *player, MONSTER* monster, char dir){
+switch (dir)
+    {
+    case 'q':
+        if(room[monster->y][monster->x - 1] == 'W') return 0;
+        if(monster->y == player->y && monster->x - 1 == player->x ){
+            looseHealth(monster->damage,player);
+            return 0;
+        }
+        if(room[monster->y][monster->x - 1] == 'G' && !monster->fly) return 0;
+        if(room[monster->y][monster->x - 1] == 'R' && !monster->fly) return 0;
+        monster->x -= 1;
+        return 1;
+        break;
+    case 'z':
+        if(room[monster->y - 1][monster->x] == 'W') return 0;
+        if(monster->y - 1 == player->y && monster->x == player->x ){
+            looseHealth(monster->damage,player);
+            return 0;
+        }
+        if(room[monster->y - 1][monster->x] == 'G' && !monster->fly) return 0;
+        if(room[monster->y - 1][monster->x] == 'R' && !monster->fly) return 0;
+        monster->y -= 1;
+        return 1;
+        break;
+    case 'd':
+        if(room[monster->y][monster->x + 1] == 'W') return 0;
+        if(monster->y == player->y && monster->x + 1 == player->x ){
+            looseHealth(monster->damage,player);
+            return 0;
+        }
+        if(room[monster->y][monster->x + 1] == 'G' && !monster->fly) return 0;
+        if(room[monster->y][monster->x + 1] == 'R' && !monster->fly) return 0;
+        monster->x += 1;
+        return 1;
+        break;
+    case 's':
+        if(room[monster->y + 1][monster->x] == 'W') return 0;
+        if(monster->y + 1 == player->y && monster->x == player->x ){
+            looseHealth(monster->damage,player);
+            return 0;
+        }
+        if(room[monster->y + 1][monster->x] == 'G' && !monster->fly) return 0;
+        if(room[monster->y + 1][monster->x] == 'R' && !monster->fly) return 0;
+        monster->y += 1;
+        return 1;
+        break;
+    }
 }
