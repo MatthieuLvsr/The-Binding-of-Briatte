@@ -28,9 +28,13 @@ void addRoom(Floor* floor, int y, int x, int id, int type){
     newRoom->y = y;
     newRoom->id = id == 0 ? 0 : (rand() % nbMaps() + 1);
     newRoom->map = getMap(newRoom->id);
+    newRoom->type = type;
+    if(type == 0){
+        newRoom->monster_list = spawn((rand()%4 + 2),x,y,newRoom->map);
+        newRoom->map->status = 1;
+    }else newRoom->monster_list = NULL;
     newRoom->ind = length(floor->list);
     newRoom->last = floor->list;
-    newRoom->type = type;
     floor->list = newRoom;
 }
 
@@ -85,7 +89,7 @@ Floor* newFloor(int stage){
     floor->curY = (floor->size - 1) / 2;
     int remain = floor->size - 1;
     floor->chunck[floor->curY][floor->curX] = SPAWN;
-    addRoom(floor,floor->curY,floor->curX,0,0);
+    addRoom(floor,floor->curY,floor->curX,0,3);
     fillFloor(floor);
     return floor;
 }
@@ -303,5 +307,5 @@ void checkDoors(Floor* floor){
 
 void nextStep(Floor* floor, PLAYER player, SHOOT* shoots, BOSS_MONSTER boss){
     RoomItem* room = getRoomByCoord(floor->list,player.roomX,player.roomY);
-    displayRoom(room->map->room,room->map->height,room->map->width,player, shoots, boss);
+    displayRoom(room->map->room,room->map->height,room->map->width,player, shoots, boss,room->monster_list);
 }

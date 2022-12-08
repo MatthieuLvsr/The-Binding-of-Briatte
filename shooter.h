@@ -5,6 +5,8 @@
 #ifndef SHOOTER_H
 #define SHOOTER_H
 
+#include "monster.h"
+
 struct SHOOT{
     int startX;
     int startY;
@@ -18,6 +20,7 @@ typedef struct SHOOT SHOOT;
 typedef struct MAP MAP;
 typedef struct PLAYER PLAYER;
 typedef struct BOSS_MONSTER BOSS_MONSTER;
+typedef struct MONSTER MONSTER;
 
 /** Nouveau tir
  * @param projectiles liste des tirs
@@ -49,7 +52,7 @@ void printShoot(SHOOT* projectiles);
  * @param map pièce
  * @param player joueur
 */
-void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss);
+void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss, MONSTER_LIST* monster_list);
 
 /** Récupération de la longueur de la liste
  * @param shoots liste des tirs

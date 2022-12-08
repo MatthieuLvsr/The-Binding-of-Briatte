@@ -9,7 +9,7 @@ int play(void){
 
     // newShoot(&projectiles,2,2,'s','o');  
 
-    int level = 3;
+    int level = 1;
     
     Floor* floor = newFloor(level);
     BOSS_MONSTER* boss = newBoss(level++);
@@ -61,9 +61,14 @@ int play(void){
                 room->map->status = 0;
                 room->map->room[room->map->height/2][room->map->width/2] = 'N';
             }
-            updateShoots(&projectiles,room->map, &player, boss);
+            if(room->type == 0){
+                if(checkKills(room->monster_list)){
+                    room->map->status = 0;
+                }
+            }
+            updateShoots(&projectiles,room->map, &player, boss,room->monster_list);
             system("@cls||clear");
-            displayRoom(room->map->room,room->map->height,room->map->width,player,projectiles, *boss);
+            displayRoom(room->map->room,room->map->height,room->map->width,player,projectiles, *boss, room->monster_list);
             if(player.tirRate - (frame - player.lastShot) <= 0) player.reloading = 1;
             if ( _kbhit() ){
                 dir = _getch();
@@ -117,7 +122,7 @@ int play(void){
         if(!checkHealth(player))break;
         frame += 1.0/SPEED;
     }
-    printShoots(projectiles);
+    // printShoots(projectiles);
     // printf("%d",shootsLength(projectiles));
     freeFloor(floor);
 

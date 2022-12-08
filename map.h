@@ -8,6 +8,7 @@
 #include "floor.h"
 #include "player.h"
 #include "boss.h"
+#include "monster.h"
 #include "shooter.h"
 #include "map.h"
 
@@ -22,6 +23,7 @@ typedef struct MAP{
 }MAP;
 
 typedef struct BOSS_MONSTER BOSS_MONSTER;
+typedef struct MONSTER MONSTER;
 
 /** Récupération de la disposition de la salle
  * @param id id de la salle
@@ -44,7 +46,7 @@ char** initRoom(int height, int width);
  * @param shoots liste des tirs
  * @param boss boss
 */
-void displayRoom(char** room, int height, int width, PLAYER player, SHOOT* shoots, BOSS_MONSTER boss);
+void displayRoom(char** room, int height, int width, PLAYER player, SHOOT* shoots, BOSS_MONSTER boss, MONSTER_LIST* monster_list);
 
 /** Récupération du nombre de maps
  * @return nombre de pattern disponibles dans le fichier

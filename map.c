@@ -47,7 +47,8 @@ char** initRoom(int height, int width){
     return room;
 }
 
-void displayRoom(char** room, int height, int width, PLAYER player, SHOOT* shoots, BOSS_MONSTER boss){
+void displayRoom(char** room, int height, int width, PLAYER player, SHOOT* shoots, BOSS_MONSTER boss, MONSTER_LIST* monster_list){
+    // printMonsters(monster_list);
     printf("HEALTH : ");
     for(int i = 0; i < player.health; i += 1){
         if(i%2==0)printf("<");
@@ -71,6 +72,8 @@ void displayRoom(char** room, int height, int width, PLAYER player, SHOOT* shoot
             }
             if(proj != 'n'){
                 printf("%c ",proj);
+            }else if(getMonsterByCoord(monster_list,j,i)){
+                printf("%d ",getMonsterByCoord(monster_list,j,i));
             }else if(i == player.y && j == player.x){
                 printf("%c ",'P');
             }else if(boss.active && i == boss.y && j == boss.x){

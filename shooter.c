@@ -55,8 +55,9 @@ void printShoot(SHOOT* projectile){
     printf("%d : start(%d,%d) - dir: %c - type: \"%c\"\n",projectile->ind,projectile->startX,projectile->startY,projectile->dir,projectile->type);
 }
 
-void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss){
+void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss, MONSTER_LIST* monster_list){
     SHOOT* projectiles = *shoots;
+    // int test;
     while(projectiles){
         int x = projectiles->startX;
         int y = projectiles->startY;
@@ -67,6 +68,11 @@ void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss){
             if(projectiles->type == 'o'){
                 if(boss->x == x - 1 && boss->y == y){
                     looseHealthBoss(player->damage,boss);
+                    deleteShoot(shoots,projectiles->ind);
+                }else if(getMonsterByCoord(monster_list,x - 1,y)){
+                    hitMonsterByCoord(player->damage,monster_list,x - 1,y);
+                    // printMonsters(monster_list);
+                    // scanf("%d",&test);
                     deleteShoot(shoots,projectiles->ind);
                 }else if(map->room[y][x-1]!='R'){
                     projectiles->startX -= 1;
@@ -94,6 +100,9 @@ void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss){
                 if(boss->x == x && boss->y == y - 1){
                     looseHealthBoss(player->damage,boss);
                     deleteShoot(shoots,projectiles->ind);
+                }else if(getMonsterByCoord(monster_list,x,y - 1)){
+                    hitMonsterByCoord(player->damage,monster_list,x,y - 1);
+                    deleteShoot(shoots,projectiles->ind);
                 }else if(map->room[y-1][x]!='R'){
                     projectiles->startY -= 1;
                 }else if(player->ss){
@@ -120,6 +129,9 @@ void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss){
                 if(boss->x == x + 1 && boss->y == y){
                     looseHealthBoss(player->damage,boss);
                     deleteShoot(shoots,projectiles->ind);
+                }else if(getMonsterByCoord(monster_list,x + 1,y)){
+                    hitMonsterByCoord(player->damage,monster_list,x + 1,y);
+                    deleteShoot(shoots,projectiles->ind);
                 }else if(map->room[y][x+1]!='R'){
                     projectiles->startX += 1;
                 }else if(boss->ss){
@@ -145,6 +157,9 @@ void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss){
             if(projectiles->type == 'o'){
                 if(boss->x == x && boss->y == y + 1){
                     looseHealthBoss(player->damage,boss);
+                    deleteShoot(shoots,projectiles->ind);
+                }else if(getMonsterByCoord(monster_list,x,y + 1)){
+                    hitMonsterByCoord(player->damage,monster_list,x,y + 1);
                     deleteShoot(shoots,projectiles->ind);
                 }else if(map->room[y+1][x]!='R'){
                     projectiles->startY += 1;
