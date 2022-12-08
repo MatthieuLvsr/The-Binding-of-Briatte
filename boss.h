@@ -8,7 +8,6 @@
 #include "shooter.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdlib.h>
 
 #define DELAY_BOSS 10.0 //frames entre chaque action du boss
 

@@ -5,11 +5,12 @@
 #ifndef FLOOR_H
 #define FLOOR_H
 
-#include "floor.h"
 #include "map.h"
 #include "player.h"
 #include "boss.h"
 #include "shooter.h"
+#include "monster.h"
+#include "floor.h"
 
 #define BOSS 'B' 
 #define SPAWN 'S' 
@@ -23,6 +24,7 @@ struct RoomItem {
     int id;
     int ind;
     int type;
+    MONSTER_LIST* monster_list;
     struct MAP * map;
     struct RoomItem * last;
 };
@@ -40,6 +42,8 @@ typedef struct Floor Floor;
 
 
 typedef struct BOSS_MONSTER BOSS_MONSTER;
+typedef struct MONSTER MONSTER;
+typedef struct MONSTER_LIST MONSTER_LIST;
 
 
 /** Instance d'un nouvel étage
