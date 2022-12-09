@@ -7,6 +7,10 @@
 #include "game.h"
 #include "map.h"
 
+/** Affichage du menu
+ * 
+ * @return Erreur
+*/
 int menu(void);
 
 #endif

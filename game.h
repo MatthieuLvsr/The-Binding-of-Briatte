@@ -15,7 +15,7 @@
 #define SAFE 5.0
 
 /** Lancement du jeu
- * @return erreur
+ * @return Erreur
 */
 int play(void);
 

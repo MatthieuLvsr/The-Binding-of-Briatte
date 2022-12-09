@@ -35,10 +35,45 @@ typedef struct RoomItem RoomItem;
 typedef struct SHOOT SHOOT;
 
 
+/** Instance d'un boss
+ * 
+ * @param floor level en cour
+ * @return Un nouveau boss
+*/
 BOSS_MONSTER* newBoss(int floor);
+
+/** IA des différents boss
+ * 
+ * @param floor étage en cour
+ * @param boss boss à manipuler
+ * @param player joueur
+ * @param projectiles liste des tirs
+*/
 void bossAI(Floor* floor, BOSS_MONSTER *boss, PLAYER *player, SHOOT** projectiles);
+
+/** Check des collisions du boss
+ * 
+ * @param room tableau de caractères de la pièce
+ * @param player joueur
+ * @param boss boss à verifier
+ * @param dir direction à checker
+ * @return booléen
+*/
 int checkCollisionBoss(char** room,PLAYER *player, BOSS_MONSTER* boss, char dir);
+
+/** Perte de vie du boss
+ * 
+ * @param hp points de vie à faire perdre
+ * @param boss boss ciblé
+ * @return Un booléen
+*/
 int looseHealthBoss(int hp, BOSS_MONSTER *boss);
+
+/** Vérification des vies du boss
+ * 
+ * @param boss boss ciblé
+ * @return Un booléen
+*/
 int checkHealthBoss(BOSS_MONSTER *boss);
 
 

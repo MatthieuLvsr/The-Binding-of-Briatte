@@ -46,6 +46,7 @@ char** initRoom(int height, int width);
  * @param player joueur
  * @param shoots liste des tirs
  * @param boss boss
+ * @param monster_list Liste des monstres associé à la pièce
 */
 void displayRoom(char** room, int height, int width, PLAYER player, SHOOT* shoots, BOSS_MONSTER boss, MONSTER_LIST* monster_list);
 

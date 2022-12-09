@@ -40,11 +40,26 @@ void movePlayer(Floor* floor, PLAYER* player, char dir);
  * @param room pièce
  * @param player joueur
  * @param dir direction
+ * @param status Status de la pièce
  * @return booleen de possibilité de déplacement
 */
 int checkCollision(char** room, PLAYER* player, char dir, char status);
 
+/** Perte de points de vie du joueur
+ * 
+ * @param hp Dégats à infliger
+ * @param player Joueur
+ * 
+ * @return Booléen
+*/
 int looseHealth(int hp, PLAYER *player);
+
+/** Vérifications des points de vie du joueur
+ * 
+ * @param player Joueur
+ * 
+ * @return Booléen
+*/
 int checkHealth(PLAYER player);
 
 #endif

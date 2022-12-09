@@ -49,9 +49,11 @@ void printShoots(SHOOT* projectiles);
 void printShoot(SHOOT* projectiles);
 
 /** Mise à jour des tirs
- * @param projectiles liste des projectiles
- * @param map pièce
- * @param player joueur
+ * @param projectiles Liste des projectiles
+ * @param map Pièce
+ * @param player Joueur
+ * @param boss Boss
+ * @param monster_list Liste des monstres
 */
 void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss, MONSTER_LIST* monster_list);
 
@@ -62,8 +64,11 @@ void updateShoots(SHOOT** shoots, MAP* map, PLAYER* player, BOSS_MONSTER *boss, 
 int shootsLength(SHOOT* shoots);
 
 /** Tir
- * @param shoots liste des tirs
- * @param player joueur
+ * @param shoots Liste des tirs
+ * @param startX Coordonnée x
+ * @param startY Coordonnée y
+ * @param dir Direction du tir
+ * @param type Type du tir
 */
 void shoot(SHOOT** shoots, int startX, int startY, char dir, char type);
 

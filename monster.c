@@ -141,12 +141,12 @@ int getMonsterByCoord(MONSTER_LIST* monster_list, int x, int y){
     return 0;
 }
 
-MONSTER* getMonsterByInd(MONSTER_LIST* monster_list, int ind){
-    while(monster_list != NULL && monster_list->monster->ind != ind){
-        monster_list = monster_list->last;
-    }
-    return monster_list->monster;
-}
+// MONSTER* getMonsterByInd(MONSTER_LIST* monster_list, int ind){
+//     while(monster_list != NULL && monster_list->monster->ind != ind){
+//         monster_list = monster_list->last;
+//     }
+//     return monster_list->monster;
+// }
 
 void hitMonsterByCoord(int damage, MONSTER_LIST* monster_list, int x, int y){
     while(monster_list){
@@ -214,10 +214,10 @@ void monsterAI(Floor* floor, MONSTER_LIST *monster_list, PLAYER *player, SHOOT**
                 else if(player->y > monster_list->monster->y)checkCollisionMonster(room->map->room,player,monster_list->monster,'s');
                 else if(player->y < monster_list->monster->x)checkCollisionMonster(room->map->room,player,monster_list->monster,'z');
             }else{
-                if(player->x < monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'q', 'X');
-                else if(player->x > monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'d', 'X');
-                else if(player->y > monster_list->monster->y)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'s', 'X');
-                else if(player->y < monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'z', 'X');
+                if(player->x < monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'q', 'x');
+                else if(player->x > monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'d', 'x');
+                else if(player->y > monster_list->monster->y)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'s', 'x');
+                else if(player->y < monster_list->monster->x)shoot(projectiles,monster_list->monster->x,monster_list->monster->y,'z', 'x');
             }
         }else{
            if(player->x < monster_list->monster->x)checkCollisionMonster(room->map->room,player,monster_list->monster,'q');
