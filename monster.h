@@ -47,6 +47,7 @@ int monsterLength(MONSTER_LIST* monster_list);
 int checkKills(MONSTER_LIST* monster_list);
 void monsterAI(Floor* floor, MONSTER_LIST *monster_list, PLAYER *player, SHOOT** projectiles);
 int checkCollisionMonster(char** room,PLAYER *player, MONSTER* monster, char dir);
+void killAll(MONSTER_LIST* monster_list);
 
 
 #endif

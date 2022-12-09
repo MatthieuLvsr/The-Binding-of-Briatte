@@ -18,7 +18,7 @@ MONSTER_LIST* spawn(int size, int roomX, int roomY, MAP *map){
             x = rand()%map->width;
             y = rand()%map->height;
         }while(map->room[y][x] != EMPTY);
-        int index = rand()%(getNbMonster() - 1);
+        int index = rand()%(getNbMonster());
         newMonster->monster = getMonster(index, map, monsterLength(monster_list) + 1);
         newMonster->last = monster_list;
         monster_list = newMonster;
@@ -156,7 +156,7 @@ void hitMonsterByCoord(int damage, MONSTER_LIST* monster_list, int x, int y){
 }
 
 void printMonster(MONSTER_LIST* monster_list){
-    printf("%d - [%d,%d] - hpMax: %d - fly: %d - shoot: %d\n",monster_list->monster->ind,monster_list->monster->x,monster_list->monster->y,monster_list->monster->health,monster_list->monster->fly,monster_list->monster->ss);
+    if(monster_list->monster->alive)printf("%d - [%d,%d] - hpMax: %d - fly: %d - shoot: %d\n",monster_list->monster->ind,monster_list->monster->x,monster_list->monster->y,monster_list->monster->health,monster_list->monster->fly,monster_list->monster->ss);
 }
 
 int getNbMonster(void){
@@ -277,5 +277,12 @@ switch (dir)
         monster->y += 1;
         return 1;
         break;
+    }
+}
+
+void killAll(MONSTER_LIST* monster_list){
+    while(monster_list){
+        monster_list->monster->alive = 0;
+        monster_list = monster_list->last;
     }
 }

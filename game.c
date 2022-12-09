@@ -70,6 +70,8 @@ int play(void){
                 }
                 if(checkKills(room->monster_list)){
                     room->map->status = 0;
+                }else{
+                    // printMonsters(room->monster_list);
                 }
             }
             updateShoots(&projectiles,room->map, &player, boss,room->monster_list);
@@ -111,6 +113,7 @@ int play(void){
                         player.lastShot = frame;
                     }
                 }
+                if(dir == 'k')killAll(room->monster_list);
             }
             if(invulnerability >= SAFE){
                 if(room->map->room[player.y][player.x] == 'S'){
